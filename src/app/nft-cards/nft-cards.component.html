@@ -1,0 +1,99 @@
+<!--CARDS WRAPPER-->
+<section class="uk-section uk-section-small uk-section-default uk-padding-remove-bottom">
+    <div class="uk-container uk-container-expand uk-margin-large-bottom">
+        <ul class="uk-subnav uk-subnav-pill" uk-switcher>
+            <li><a href="#">ALL NFTs</a></li>
+            <li><a href="#">MY NFTS</a></li>
+        </ul>
+
+        <ul class="uk-switcher uk-margin">
+            <li>
+                <div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l  uk-child-width-1-5@xl uk-grid-match js-filter" data-uk-grid="masonry: true" data-uk-sortable="handle: .drag-icon">
+                    <!-- TEST CARD -->
+                    <ng-container *ngFor="let nft of allNFTs">
+                        <div data-tags="NFT Minter Motoko">
+                            <div class="uk-card uk-card-small uk-card-hover uk-card-default">
+                              <div class="uk-card-header">
+                                <div class="uk-grid uk-grid-small uk-text-small" data-uk-grid>
+                                  <div class="uk-width-expand">
+                                    <span class="cat-txt">NFT Author:</span> <br><span class="uk-text-small uk-text-muted">{{ nft.origin }}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="uk-card-media">
+                                <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+                                  <img class="lazy" [attr.data-src]="nft.url" data-width="400" data-height="300" data-uk-img alt="" src="img/transp.gif">
+                                </div>
+                                
+                              </div>
+                              <div class="uk-card-footer">
+                                <div class="uk-grid uk-grid-small uk-grid-divider uk-flex uk-flex-middle" data-uk-grid>
+                                  <div class="uk-width-expand uk-text-bold">
+                                    50 FOX
+                                  </div>
+                                  <div class="uk-width-auto uk-text-right">
+                                    <button class="uk-button uk-button-primary" (click)="preBuyNFT(nft)" [disabled]="nft.owner.toString() === principal.toString()">BUY THIS NFT</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </ng-container>
+                    <!-- /TEST CARD -->
+                  </div>
+            </li>
+            <li>
+                <div class="uk-grid uk-grid-medium uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l  uk-child-width-1-5@xl uk-grid-match js-filter" data-uk-grid="masonry: true" data-uk-sortable="handle: .drag-icon">
+                    <ng-container *ngFor="let nft of myNFTs">
+                        <div data-tags="NFT Minter Motoko">
+                            <div class="uk-card uk-card-small uk-card-hover uk-card-default">
+                              <div class="uk-card-header">
+                                <div class="uk-grid uk-grid-small uk-text-small" data-uk-grid>
+                                  <div class="uk-width-expand">
+                                    <span class="cat-txt">NFT Author:</span> <br><span class="uk-text-small uk-text-muted">{{ nft.origin }}</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="uk-card-media">
+                                <div class="uk-inline-clip uk-transition-toggle" tabindex="0">
+                                  <img class="lazy" [attr.data-src]="nft.url" data-width="400" data-height="300" data-uk-img alt="" src="img/transp.gif">
+                                </div>
+                                
+                              </div>
+                            </div>
+                          </div>
+                    </ng-container>
+                </div>
+            </li>
+        </ul>
+    </div>
+  </section>
+  <!--/CARDS WRAPPER-->
+
+<!-- Modal NFT MINT -->
+<div id="modal-mint" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body" style="border-top: 10px solid lightskyblue">
+        <h2 class="uk-modal-title uk-text-bold">Mint NFT and earn amazing rewards</h2>
+        <div class="uk-margin">
+            <label class="uk-form-label">Provide (paste) complete url to your artwork</label>
+            <div class="uk-width-1-1"><input class="uk-input uk-form-large" type="text" placeholder="Paste your image url" [(ngModel)]="url"></div>
+        </div>
+        <p class="uk-text-right">
+            <button class="uk-button uk-button-primary uk-modal-close" type="button" (click)="mint()" [disabled]="url.length < 5">LET'S GO! MINT MY NFT</button>
+        </p>
+    </div>
+</div>
+
+<!-- Modal NFT BUY -->
+<div id="modal-buy" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body" style="border-top: 10px solid lightskyblue">
+        <h2 class="uk-modal-title uk-text-bold">BUY This NFT!</h2>
+        <div class="uk-margin">
+            You can buy this NFT for the price of 50 FOX!
+            <br><span class="uk-text-bold">Your current balance is {{ currentBalance }} FOX</span>
+        </div>
+        <p class="uk-text-right">
+            <button class="uk-button uk-button-primary uk-modal-close" type="button" (click)="buyNFT(selectedNFT)" [disabled]="currentBalance < 50">BUY THIS NFT</button>
+        </p>
+    </div>
+</div>
