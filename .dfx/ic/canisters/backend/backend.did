@@ -1,0 +1,17 @@
+type NFT = 
+ record {
+   id: nat;
+   origin: principal;
+   owner: principal;
+   url: text;
+ };
+type DRC721 = 
+ service {
+   balanceOf: (principal) -> (opt nat);
+   buy_NFT: (nat, principal, principal) -> (bool);
+   get_all_nfts: () -> (vec NFT);
+   get_all_users_nfts: (principal) -> (vec NFT);
+   get_nft: (nat) -> (opt NFT) query;
+   mint_nft: (text, principal) -> (bool);
+ };
+service : (text, text) -> DRC721
